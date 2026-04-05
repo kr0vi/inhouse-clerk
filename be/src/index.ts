@@ -37,20 +37,21 @@ app.post("/signup", async (req, res) => {
       name,
     },
   });
-  res.send({ message: "User signed up successfully! go to /login" });
+  res.send({ message: "User signed up successfully! go to /login", success: true });
 });
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
-    return res.status(400).send({ message: "User not found!" });
+    return res.status(400).send({ message: "User not found!", success: false });
   }
   if (user.password !== password) {
-    return res.status(400).send({ message: "Invalid password!" });
+    return res.status(400).send({ message: "Invalid password!", success: false });
   }
   const token = jwt.sign({ userId: user.id }, "JWT_SECRET_KEY");
-  res.send({ message: "User logged in successfully!", token });
+  console.log("Generated JWT token for user:", { userId: user.id, email: user.email });
+  res.send({ message: "User logged in successfully!", token ,success:true});
 });
 
 app.get("/me", async (req, res) => {

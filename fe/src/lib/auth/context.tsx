@@ -1,3 +1,4 @@
+"use client";
 //this is the global state for auth
 
 import { createContext, useEffect, useState } from "react";

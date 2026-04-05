@@ -1,6 +1,25 @@
+"use client";
+import { login } from "@/lib/auth/api";
+import { useUser } from "@/lib/auth/useUser";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { refresh, isSignedIn } = useUser();
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      console.log("Attempting login with:", { email, password });
+      await login(email, password);
+      await refresh(); // Refresh the page to update auth state
+    } catch (err: any) {
+      alert("Login failed: " + err.message);
+    }
+    console.log("Logging in with:", { email, password });
+  };
   return (
     <div className="flex min-h-screen pt-24 items-center justify-center bg-[#1a56ff] px-6 md:px-12 font-sans overflow-hidden">
       <div className="">
@@ -8,15 +27,18 @@ export default function LoginPage() {
           Log in
         </h1>
         <p className="text-base font-light text-white/90 mb-12 tracking-wide max-w-xl">
-          Welcome back.<br/> Enter your credentials to access your account.
+          Welcome back.
+          <br /> Enter your credentials to access your account.
         </p>
 
-        <form className="flex flex-col gap-5 max-w-xl">
+        <form className="flex flex-col gap-5 max-w-xl" onSubmit={handleLogin}>
           <div className="relative group">
             <div className="absolute inset-0 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm pointer-events-none transition-all group-focus-within:bg-white/15 group-focus-within:border-white/30"></div>
-            <input 
-              type="email" 
-              placeholder="Email" 
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full bg-transparent text-white placeholder-white/60 px-8 py-3 outline-none rounded-full text-sm relative z-10 focus:ring-0"
             />
@@ -24,31 +46,50 @@ export default function LoginPage() {
 
           <div className="relative group">
             <div className="absolute inset-0 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm pointer-events-none transition-all group-focus-within:bg-white/15 group-focus-within:border-white/30"></div>
-            <input 
-              type="password" 
+            <input
+              type="password"
               placeholder="Password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-transparent text-white placeholder-white/60 px-8 py-3 outline-none rounded-full text-sm relative z-10 focus:ring-0"
             />
           </div>
 
           <div className="flex items-center justify-between px-2 mt-2">
             <div className="flex items-center gap-2">
-              <input type="checkbox" id="remember" className="w-4 h-4 rounded border-white/20 bg-white/10 text-white focus:ring-white focus:ring-offset-[#1a56ff]" />
-              <label htmlFor="remember" className="text-white/80 text-sm">Remember me</label>
+              <input
+                type="checkbox"
+                id="remember"
+                className="w-4 h-4 rounded border-white/20 bg-white/10 text-white focus:ring-white focus:ring-offset-[#1a56ff]"
+              />
+              <label htmlFor="remember" className="text-white/80 text-sm">
+                Remember me
+              </label>
             </div>
-            <a href="#" className="text-white/80 text-sm hover:text-white transition-colors">Forgot password?</a>
+            <a
+              href="#"
+              className="text-white/80 text-sm hover:text-white transition-colors"
+            >
+              Forgot password?
+            </a>
           </div>
 
           <div className="mt-4 flex flex-col sm:flex-row items-center gap-6">
-            <button 
+            <button
               type="submit"
               className="w-full sm:w-auto bg-white text-[#1a56ff] font-medium rounded-full px-6 py-3 hover:bg-gray-50 transition-colors shadow-sm text-sm cursor-pointer"
             >
               Log In
             </button>
             <p className="text-white/70 text-sm">
-              Don't have an account? <Link href="/signup" className="text-white font-medium hover:underline">Sign up</Link>
+              Don't have an account?{" "}
+              <Link
+                href="/signup"
+                className="text-white font-medium hover:underline"
+              >
+                Sign up
+              </Link>
             </p>
           </div>
         </form>

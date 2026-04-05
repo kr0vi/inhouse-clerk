@@ -15,15 +15,17 @@ api.interceptors.request.use((call) => {
 });
 
 export const login = async (email: string, password: string) => {
+  console.log("Attempting to log in with email:", email); // Debug log
   const { data } = await api.post("/login", { email, password }); // login route will be put here in the future
   if (data.success) {
+    console.log("Login successful, received data:", data);
     setToken(data.token); // set the token in local storage
   }
   return data;
 };
 
 export const getCurrentUser = async () => {
-  const { data } = await api.post("/me"); // me route will be put here in the future
+  const { data } = await api.get("/me"); // me route will be put here in the future
   return data.user;
 };
 

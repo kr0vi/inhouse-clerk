@@ -8,7 +8,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { refresh, isSignedIn } = useUser();
+  const { refresh, isLoaded, isSignedIn } = useUser();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -20,6 +20,11 @@ export default function LoginPage() {
     }
     console.log("Logging in with:", { email, password });
   };
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      window.location.href = "/me"; // Redirect to dashboard after login
+    }
+  }, [isLoaded, isSignedIn]);
   return (
     <div className="flex min-h-screen pt-24 items-center justify-center bg-[#1a56ff] px-6 md:px-12 font-sans overflow-hidden">
       <div className="">

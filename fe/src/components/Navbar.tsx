@@ -3,7 +3,7 @@ import { useUser } from "@/lib/auth/useUser";
 import Link from "next/link";
 
 export default function Navbar() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, logout } = useUser();
 
   return (
     <nav
@@ -30,12 +30,22 @@ export default function Navbar() {
 
           <div className="hidden bg--700 sm:flex items-center space-x-8 text-[11px] font-semibold tracking-widest uppercase">
             {isSignedIn ? (
-              <Link
-                href="/me"
-                className="hover:opacity-70 transition-opacity"
-              >
-                Account
-              </Link>
+              <>
+                <Link
+                  href="/me"
+                  className="hover:opacity-70 cursor-pointer  transition-opacity"
+                >
+                  Account
+                </Link>
+                <button
+                  onClick={async () => {
+                    logout();
+                  }}
+                  className="hover:opacity-70  cursor-pointer uppercase transition-opacity"
+                >
+                  Log out
+                </button>
+              </>
             ) : (
               <>
                 {" "}

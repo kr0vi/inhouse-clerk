@@ -24,6 +24,15 @@ export const login = async (email: string, password: string) => {
   return data;
 };
 
+export const signup = async (email: string, password: string, name: string) => {
+  console.log("Attempting to sign up with email:", email); // Debug log
+  const { data } = await api.post("/signup", { email, password, name }); // signup route will be put here in the future
+  if (data.success) {
+    console.log("Signup successful, received data:", data);
+    window.location.href = "/login"; // Redirect to login page after successful signup
+  }
+};
+
 export const getCurrentUser = async () => {
   const { data } = await api.get("/me"); // me route will be put here in the future
   return data.user;

@@ -1,6 +1,6 @@
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 p-6 pt-10 sm:p-10">
+    <div className="min-h-screen bg-transparent p-6 pt-28 sm:p-10 sm:pt-28">
       <div className="max-w-7xl mx-auto">
         <div className="md:flex md:items-center md:justify-between mb-8">
           <div className="min-w-0 flex-1">

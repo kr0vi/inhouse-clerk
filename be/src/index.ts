@@ -1,14 +1,18 @@
 import express from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 const app = express();
 const prisma = new PrismaClient({});
 app.use(cors());
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+
 
 app.get("/info", (req, res) => {
   res.send({
@@ -47,6 +51,32 @@ app.post("/login", async (req, res) => {
   }
   const token = jwt.sign({ userId: user.id }, "JWT_SECRET_KEY");
   res.send({ message: "User logged in successfully!", token });
+});
+
+app.get("/me", async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).send({ message: "No token provided!", success: false });
+  }
+  const token = authHeader.split(" ")[1];
+  if (!token) {
+    return res.status(401).send({ message: "No token provided!", success: false });
+  }
+  try {
+    const decoded: JwtPayload = jwt.verify(
+      token,
+      "JWT_SECRET_KEY",
+    ) as JwtPayload;
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+    });
+    if (!user) {
+      return res.status(404).send({ message: "User not found!", success: false });
+    }
+    res.send({ user: { id: user.id, email: user.email, name: user.name }, success: true });
+  } catch (err) {
+    return res.status(401).send({ message: "Invalid token!", success: false });
+  }
 });
 
 app.listen(3000, () => {

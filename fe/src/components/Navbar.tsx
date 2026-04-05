@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export default function Navbar() {
 
@@ -15,21 +12,19 @@ export default function Navbar() {
               <path d="M12 2v20M17 5l-10 14M22 12H2M19 17L5 7" />
             </svg>
             <Link href="/" className="text-xl font-bold tracking-tight">
-              tatem
+              klerk
             </Link>
           </div>
 
           <div className="hidden sm:flex items-center space-x-8 text-[11px] font-semibold tracking-widest uppercase">
-             {
+             
+              <Link href="/signup" className="hover:opacity-70 transition-opacity">
+                Sign Up
+              </Link>
               <Link href="/login" className="hover:opacity-70 transition-opacity">
                 Log In
               </Link>
-            }
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="sm:hidden flex items-center">
-            <span className="text-sm">Menu</span>
+            
           </div>
         </div>
       </div>

@@ -48,3 +48,7 @@ app.post("/login", async (req, res) => {
   const token = jwt.sign({ userId: user.id }, "JWT_SECRET_KEY");
   res.send({ message: "User logged in successfully!", token });
 });
+
+app.listen(3000, () => {
+  console.log("Server is running on http://localhost:3000");
+});

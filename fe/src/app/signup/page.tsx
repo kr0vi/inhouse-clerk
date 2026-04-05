@@ -1,9 +1,11 @@
 "use client";
+import { useUser } from "@/lib/auth/useUser";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function SignupPage() {
+  const { isSignedIn } = useUser();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   useEffect(() => {

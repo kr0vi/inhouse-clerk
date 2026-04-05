@@ -2,13 +2,13 @@ import Link from "next/link";
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen pt-24 flex-col bg-[#1a56ff] px-6 md:px-12 font-sans overflow-hidden">
-      <div className="max-w-[1400px] w-full mx-auto mt-12 md:mt-20">
-        <h1 className="text-[48px] md:text-[64px] leading-[1.1] font-medium tracking-[-0.02em] text-white mb-4">
+    <div className="flex min-h-screen pt-24 items-center justify-center bg-[#1a56ff] px-6 md:px-12 font-sans overflow-hidden">
+      <div className="">
+        <h1 className="text-4xl leading-[1.1] font-medium tracking-[-0.02em] text-white mb-4">
           Log in
         </h1>
-        <p className="text-xl md:text-2xl font-light text-white/90 mb-12 tracking-wide max-w-xl">
-          Welcome back. Enter your credentials to access your account.
+        <p className="text-base font-light text-white/90 mb-12 tracking-wide max-w-xl">
+          Welcome back.<br/> Enter your credentials to access your account.
         </p>
 
         <form className="flex flex-col gap-5 max-w-xl">
@@ -16,9 +16,9 @@ export default function LoginPage() {
             <div className="absolute inset-0 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm pointer-events-none transition-all group-focus-within:bg-white/15 group-focus-within:border-white/30"></div>
             <input 
               type="email" 
-              placeholder="Email address" 
+              placeholder="Email" 
               required
-              className="w-full bg-transparent text-white placeholder-white/60 px-8 py-5 outline-none rounded-full text-lg relative z-10 focus:ring-0"
+              className="w-full bg-transparent text-white placeholder-white/60 px-8 py-3 outline-none rounded-full text-sm relative z-10 focus:ring-0"
             />
           </div>
 
@@ -28,7 +28,7 @@ export default function LoginPage() {
               type="password" 
               placeholder="Password"
               required
-              className="w-full bg-transparent text-white placeholder-white/60 px-8 py-5 outline-none rounded-full text-lg relative z-10 focus:ring-0"
+              className="w-full bg-transparent text-white placeholder-white/60 px-8 py-3 outline-none rounded-full text-sm relative z-10 focus:ring-0"
             />
           </div>
 
@@ -43,7 +43,7 @@ export default function LoginPage() {
           <div className="mt-4 flex flex-col sm:flex-row items-center gap-6">
             <button 
               type="submit"
-              className="w-full sm:w-auto bg-white text-[#1a56ff] font-medium rounded-full px-12 py-4 hover:bg-gray-50 transition-colors shadow-sm text-lg"
+              className="w-full sm:w-auto bg-white text-[#1a56ff] font-medium rounded-full px-6 py-3 hover:bg-gray-50 transition-colors shadow-sm text-sm cursor-pointer"
             >
               Log In
             </button>

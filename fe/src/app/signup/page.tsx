@@ -1,6 +1,19 @@
+"use client"
 import Link from "next/link";
+import { use, useEffect, useState } from "react";
 
-export default function SignupPage() {
+export default function SignupPage({searchParams}:{searchParams:Promise<{email:string}>})
+ 
+{
+
+  const [email,setEmail] = useState("");
+  useEffect(()=>{
+      const alreadyEmail =use(searchParams).email; 
+      if(alreadyEmail){
+  setEmail(
+    alreadyEmail
+  )}
+  },[])
   return (
     <div className="flex min-h-screen pt-24 flex items-center justify-center bg-[#1a56ff] px-6 md:px-12 font-sans overflow-hidden">
       <div className="">
@@ -16,7 +29,7 @@ export default function SignupPage() {
             <div className="absolute inset-0 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm pointer-events-none transition-all group-focus-within:bg-white/15 group-focus-within:border-white/30"></div>
             <input 
               type="text" 
-              placeholder="Full Name" 
+              placeholder="Name" 
               required
               className="w-full bg-transparent text-white placeholder-white/60 px-8 py-3 outline-none rounded-full text-sm relative z-10 focus:ring-0"
             />
@@ -26,8 +39,13 @@ export default function SignupPage() {
             <div className="absolute inset-0 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm pointer-events-none transition-all group-focus-within:bg-white/15 group-focus-within:border-white/30"></div>
             <input 
               type="email" 
-              placeholder="Email address" 
+              placeholder="Email" 
               required
+              // value={email}
+              onChange={(e)=>{
+                console.log(e.target.value)
+                setEmail(e.target.value)
+              }}
               className="w-full bg-transparent text-white placeholder-white/60 px-8 py-3 outline-none rounded-full text-sm relative z-10 focus:ring-0"
             />
           </div>

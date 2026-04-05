@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Modern Web App",
-  description: "A very simple frontend",
+  title: "Klerk",
+  description: "frontned which is responsive to auth state",
 };
 
 export default function RootLayout({
